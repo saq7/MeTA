@@ -46,6 +46,7 @@ apart
 are
 around
 as
+assignment
 at
 av
 be
@@ -76,6 +77,7 @@ choose
 contrariwise
 cos
 could
+course
 cu
 day
 do
@@ -252,9 +254,12 @@ perhaps
 plenty
 provide
 quite
+quiz
+question
 rather
 really
 round
+requirement
 said
 sake
 same
@@ -304,6 +309,8 @@ staves
 still
 such
 supposing
+suppose
+syllabus
 than
 that
 the

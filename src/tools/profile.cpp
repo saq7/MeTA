@@ -122,6 +122,36 @@ void stop(const std::string& file, const cpptoml::table& config)
     std::cout << " -> file saved as " << out_name << std::endl;
 }
 
+
+
+
+// You should complete the function below.
+void stopstem(const std::string& file, const cpptoml::table& config)
+{
+    std::cout << "Running stopword removal and stemming" << std::endl;
+
+    using namespace meta::analyzers;
+    auto stopwords = config.get_as<std::string>("stop-words"); // Reads the stop words from file
+    std::unique_ptr<token_stream> stream
+        = make_unique<tokenizers::icu_tokenizer>();
+    //stream = make_unique<filters::lowercase_filter>(std::move(stream));
+    stream = make_unique<filters::list_filter>(std::move(stream), *stopwords);
+    stream = make_unique<filters::porter2_stemmer>(std::move(stream));
+    stream = make_unique<filters::empty_sentence_filter>(std::move(stream));
+
+    auto out_name = no_ext(file) + ".stopstem.txt";
+    write_file(stream, file, out_name);
+    std::cout << " -> file saved as " << out_name << std::endl;
+}
+
+
+
+
+
+
+
+
+
 /**
  * Performs part-of-speech tagging on a text file.
  * @param file The input file
@@ -326,4 +356,6 @@ int main(int argc, char* argv[])
         freq(file, config, 2);
     if (all || args.find("--freq-trigram") != args.end())
         freq(file, config, 3);
+    if (all || args.find("--stopstem") != args.end())
+        stopstem(file, config);
 }

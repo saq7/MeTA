@@ -13,6 +13,7 @@
 #include "util/mapping.h"
 #include "util/printing.h"
 #include "util/shim.h"
+#include <string>
 
 namespace meta
 {
@@ -180,10 +181,11 @@ double ir_eval::avg_p(const std::vector<std::pair<doc_id, double>>& results,
             avgp += num_rel / i;
             ++num_rel;
         }
-        if (i++ == total_relevant)
-            break;
-    }
 
+        if (num_rel-1 == total_relevant)
+            break;
+        i++;
+    }
     scores_.push_back(avgp / total_relevant);
     return avgp / total_relevant;
 }
